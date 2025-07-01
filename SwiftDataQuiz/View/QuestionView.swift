@@ -18,11 +18,11 @@ struct QuestionView: View {
         VStack(spacing: 40) {
             Spacer()
             VStack(alignment: .leading, spacing: 20) {
-                Text(sessionQuestions[questionSeq].text)
-                    .font(.title3)
-                    .bold()
-                    .foregroundStyle(.blue)
                 Text(sessionQuestions[questionSeq].category?.text ?? "General")
+                    .font(.caption)
+                    .bold()
+                    .foregroundStyle(.green)
+                Text(sessionQuestions[questionSeq].text)
                     .font(.title3)
                     .bold()
                     .foregroundStyle(.blue)

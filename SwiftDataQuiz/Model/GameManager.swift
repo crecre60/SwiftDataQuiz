@@ -31,8 +31,7 @@ enum Paths: Hashable {
     }
     
     func goScore() {
-//        boxes[questionSeq].hasScored = true
-
+        boxes.forEach { $0.hasScored = nil }
         paths.append(.scorePath(correct: score, total: boxes.count))
     }
 
