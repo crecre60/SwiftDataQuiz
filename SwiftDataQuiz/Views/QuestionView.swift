@@ -15,30 +15,35 @@ struct QuestionView: View {
     var questionSeq: Int
 
     var body: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 30) {
             Spacer()
             VStack(alignment: .leading, spacing: 20) {
                 Text(sessionQuestions[questionSeq].category?.text ?? "General")
+                    .italic()
                     .font(.caption)
                     .bold()
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.gray)
+                
                 Text(sessionQuestions[questionSeq].text)
                     .font(.title3)
                     .bold()
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.gray)
+                
                 Gauge(value: gaugeProgress) {}
+                .gaugeStyle(.accessoryLinear)
+                .tint(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
                 .padding()
                 .onAppear {
                     Task {
                         for i in 0...100 {
-                            gaugeProgress = Double (i) / 100
-                            try await Task.sleep(for: .milliseconds (120))
+                            gaugeProgress = Double(i) / 100
+                            try await Task.sleep(for: .milliseconds(120))
+                        }
                     }
                 }
-            }
                 
                 ForEach(sessionQuestions[questionSeq].options!, id: \.id) { option in
-                    AnswerRow(option: option)
+                    AnswerOption(option: option)
                         .environment(gameManager)
                         .simultaneousGesture(
                             TapGesture().onEnded { _ in
@@ -72,15 +77,17 @@ struct QuestionView: View {
 
 extension QuestionView {
     private func proceed(completion: @escaping () -> Void) {
-        completion()
-        if questionSeq < sessionQuestions.count - 1 {
-            gameManager.goNext(questions: sessionQuestions, seq: questionSeq)
-        } else {
-            gameManager.goScore()
+        Task {
+            completion()
+            try? await Task.sleep(for: .seconds(1))
+            if questionSeq < sessionQuestions.count - 1 {
+                gameManager.goNext(questions: sessionQuestions, seq: questionSeq)
+            } else {
+                gameManager.goScore()
+            }
         }
     }
 }
 
 #Preview {
-//    QuestionView(sessionQuestions: <#[Question]#>, questionSeq: 0)
 }

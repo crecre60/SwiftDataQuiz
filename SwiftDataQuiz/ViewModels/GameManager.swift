@@ -8,7 +8,8 @@ enum Paths: Hashable {
 
 @Observable class GameManager {
     var paths: [Paths] = []
-    var boxes: [ScoreBox] = [
+    var boxes: [ScoreBox] =
+    [
         ScoreBox(),
         ScoreBox(),
         ScoreBox(),

@@ -1,24 +1,23 @@
 import SwiftUI
 
-struct AnswerRow: View {
+struct AnswerOption: View {
     @Environment(GameManager.self) private var gameManager
-    var option: Option
     @State var isSelected = false
+    var option: Option
 
     var body: some View {
         HStack(spacing: 20) {
-            Image(systemName: "circle.fill")
-                .font(.caption)
+            if isSelected {
+                Image(systemName: option.isCorrect ? "checkmark.seal.fill" : "xmark.square.fill")
+                    .font(.title3)
+                    .foregroundColor(option.isCorrect ? .green : .red)
+
+            } else {
+                Image(systemName: "square")
+            }
             
             Text(option.text)
                 .bold()
-            
-            if isSelected {
-                Spacer()
-                
-                Image(systemName: option.isCorrect ? "checkmark.square" : "x.square")
-                    .foregroundColor(option.isCorrect ? .green : .red)
-            }
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)

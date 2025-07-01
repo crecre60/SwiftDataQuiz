@@ -25,7 +25,7 @@ struct ScoreBoxView: View {
     var body: some View {
         if let hasScored = scoreBox.hasScored {
             if hasScored {
-                Image(systemName: "checkmark.square.fill")
+                Image(systemName: "checkmark.seal.fill")
                     .foregroundStyle(.green)
             } else {
                 Image(systemName: "x.square.fill")

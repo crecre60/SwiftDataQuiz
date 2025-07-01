@@ -28,8 +28,5 @@ struct SwiftDataQuizApp: App {
         }
         .modelContainer(for: Question.self)
     }
-    init() {
-        print(URL.applicationSupportDirectory.path(percentEncoded: false))
-    }
 }
 
