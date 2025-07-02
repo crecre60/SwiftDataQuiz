@@ -52,12 +52,3 @@ class Explanation: Identifiable {
         self.text = text
     }
 }
-
-//extension Question {
-//    enum Category: String, CaseIterable, Codable {
-//        case concepts = "Core Concepts"
-//        case setup = "Setup"
-//        case operations = "Operations"
-//        case advanced = "Advanced Features"
-//    }
-//}

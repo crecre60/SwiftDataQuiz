@@ -30,41 +30,27 @@ struct QuestionView: View {
                     .foregroundStyle(.gray)
                 
                 Gauge(value: gaugeProgress) {}
-                .gaugeStyle(.accessoryLinear)
-                .tint(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                .padding()
-                .onAppear {
-                    Task {
-                        for i in 0...100 {
-                            gaugeProgress = Double(i) / 100
-                            try await Task.sleep(for: .milliseconds(120))
+                    .gaugeStyle(.accessoryLinear)
+                    .tint(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .padding()
+                    .onAppear {
+                        Task {
+                            for i in 0...100 {
+                                gaugeProgress = Double(i) / 100
+                                try await Task.sleep(for: .milliseconds(120))
+                            }
                         }
                     }
-                }
                 
-                ForEach(sessionQuestions[questionSeq].options!, id: \.id) { option in
-                    AnswerOption(option: option)
-                        .environment(gameManager)
-                        .simultaneousGesture(
-                            TapGesture().onEnded { _ in
-                                proceed {
-                                    if option.isCorrect {
-                                        gameManager.boxes[questionSeq].hasScored = true
-                                    } else {
-                                        gameManager.boxes[questionSeq].hasScored = false
-                                    }
-                                }
-                            }
-                        )
-                }
+                OptionsView(sessionQuestions: sessionQuestions,
+                            currentQuestionSeq: questionSeq,
+                            currentOptions: sessionQuestions[questionSeq].options!)
             }
             Spacer()
+            
             ScoreBoardView()
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .background(Color(#colorLiteral(red: 1, green: 0.9269904792, blue: 0.9197104489, alpha: 1)))
-        .toolbar(.hidden)
+        .formatVStack()
         .onChange(of: gaugeProgress) { oldValue, newValue in
             if newValue >= 1 {
                 proceed {
@@ -87,7 +73,4 @@ extension QuestionView {
             }
         }
     }
-}
-
-#Preview {
 }

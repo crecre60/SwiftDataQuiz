@@ -23,7 +23,7 @@ enum Paths: Hashable {
     ]
 
     var score = 0
-    private(set) var isQuestionTried = false
+    var isQuestionTried = false
     
     
     func goNext(questions: [Question], seq: Int) {
