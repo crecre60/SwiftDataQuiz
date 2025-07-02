@@ -52,9 +52,13 @@ struct ScoreView: View {
                 .font(.title)
                 .foregroundStyle(.black)
             Spacer()
-            Button("Play again") {
+            Button {
                 gameManager.score = 0
                 gameManager.paths.removeAll()
+            } label: {
+                Image(systemName: "restart")
+                    .font(.largeTitle)
+                    
             }
             Spacer()
         }

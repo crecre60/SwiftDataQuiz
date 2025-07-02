@@ -20,10 +20,15 @@ struct WelcomeView: View {
             Text("Swfit Data Quiz")
                 .font(.largeTitle)
             Spacer()
-            Button("Start") {
+            Button {
                 gameManager.paths.append(
                     .gamePath(allQuestions.shuffled().dropLast(25), 0)
                 )
+            } label: {
+                Image(systemName: "stopwatch")
+                    .font(.largeTitle)
+                    .foregroundStyle(.blue)
+                    
             }
             Spacer()
         }
