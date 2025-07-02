@@ -30,35 +30,24 @@ struct QuestionView: View {
                     .foregroundStyle(.gray)
                 
                 Gauge(value: gaugeProgress) {}
-                .gaugeStyle(.accessoryLinear)
-                .tint(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                .padding()
-                .onAppear {
-                    Task {
-                        for i in 0...100 {
-                            gaugeProgress = Double(i) / 100
-                            try await Task.sleep(for: .milliseconds(120))
+                    .gaugeStyle(.accessoryLinear)
+                    .tint(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .padding()
+                    .onAppear {
+                        Task {
+                            for i in 0...100 {
+                                gaugeProgress = Double(i) / 100
+                                try await Task.sleep(for: .milliseconds(120))
+                            }
                         }
                     }
-                }
                 
-                ForEach(sessionQuestions[questionSeq].options!, id: \.id) { option in
-                    AnswerOption(option: option)
-                        .environment(gameManager)
-                        .simultaneousGesture(
-                            TapGesture().onEnded { _ in
-                                proceed {
-                                    if option.isCorrect {
-                                        gameManager.boxes[questionSeq].hasScored = true
-                                    } else {
-                                        gameManager.boxes[questionSeq].hasScored = false
-                                    }
-                                }
-                            }
-                        )
-                }
+                OptionsView(sessionQuestions: sessionQuestions,
+                            currentQuestionSeq: questionSeq,
+                            currentOptions: sessionQuestions[questionSeq].options!)
             }
             Spacer()
+            
             ScoreBoardView()
         }
         .formatVStack()
