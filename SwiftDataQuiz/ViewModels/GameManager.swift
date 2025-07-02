@@ -28,13 +28,10 @@ enum Paths: Hashable {
         ScoreBox(),
         ScoreBox()
     ]
-
     var score = 0
     var isQuestionTried = false
     
-    
     func goNext(questions: [Question], seq: Int) {
-        isQuestionTried = false
         paths.append(.gamePath(questions, seq + 1))
     }
     
@@ -45,7 +42,6 @@ enum Paths: Hashable {
 
     func chooseOption(option: Option) {
         isQuestionTried = true
-        
         if option.isCorrect {
             score += 1
         }

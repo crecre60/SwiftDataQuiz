@@ -23,8 +23,14 @@ struct OptionsView: View {
                 .simultaneousGesture(
                     TapGesture().onEnded { _ in
                         proceed {
+                            sessionQuestions[currentQuestionSeq].category?.numberOfQuestionsPresented! += 1
                             if option.isCorrect {
                                 gameManager.boxes[currentQuestionSeq].hasScored = true
+                                if sessionQuestions[currentQuestionSeq].category?.numberOfCorrectAnswersPresented != nil {
+                                    sessionQuestions[currentQuestionSeq].category?.numberOfCorrectAnswersPresented! += 1
+                                } else {
+                                    sessionQuestions[currentQuestionSeq].category?.numberOfCorrectAnswersPresented = 1
+                                }
                             } else {
                                 gameManager.boxes[currentQuestionSeq].hasScored = false
                             }
@@ -40,10 +46,13 @@ extension OptionsView {
         Task {
             completion()
             try? await Task.sleep(for: .seconds(1))
-            if currentQuestionSeq < sessionQuestions.count - 1 {
-                gameManager.goNext(questions: sessionQuestions, seq: currentQuestionSeq)
-            } else {
-                gameManager.goScore()
+            if gameManager.isQuestionTried {
+                if currentQuestionSeq < sessionQuestions.count - 1 {
+                    gameManager.goNext(questions: sessionQuestions, seq: currentQuestionSeq)
+                } else {
+                    gameManager.goScore()
+                }
+                gameManager.isQuestionTried = false
             }
         }
     }

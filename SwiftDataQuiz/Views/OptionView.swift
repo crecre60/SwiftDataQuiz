@@ -36,7 +36,6 @@ struct OptionView: View {
             if !gameManager.isQuestionTried {
                 isSelected = true
                 gameManager.chooseOption(option: option)
-                gameManager.isQuestionTried = false
             }
         }
     }

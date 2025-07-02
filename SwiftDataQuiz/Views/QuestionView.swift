@@ -53,23 +53,12 @@ struct QuestionView: View {
         .formatVStack()
         .onChange(of: gaugeProgress) { oldValue, newValue in
             if newValue >= 1 {
-                proceed {
                     gameManager.boxes[questionSeq].hasScored = false
+                if questionSeq < sessionQuestions.count - 1 {
+                    gameManager.goNext(questions: sessionQuestions, seq: questionSeq)
+                } else {
+                    gameManager.goScore()
                 }
-            }
-        }
-    }
-}
-
-extension QuestionView {
-    private func proceed(completion: @escaping () -> Void) {
-        Task {
-            completion()
-            try? await Task.sleep(for: .seconds(1))
-            if questionSeq < sessionQuestions.count - 1 {
-                gameManager.goNext(questions: sessionQuestions, seq: questionSeq)
-            } else {
-                gameManager.goScore()
             }
         }
     }

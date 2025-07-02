@@ -12,6 +12,8 @@ import SwiftData
 class Category: Identifiable {
     var text: String
     var questions: [Question]?
+    @Transient var numberOfQuestionsPresented: Int? = 0
+    @Transient var numberOfCorrectAnswersPresented: Int? = 0
 
     init(text: String) {
         self.text = text
