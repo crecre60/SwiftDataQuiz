@@ -1,6 +1,13 @@
+//
+//  OptionView.swift
+//  SwiftDataQuiz
+//
+//  Created by Young Jin Ju on 6/30/25.
+//
+
 import SwiftUI
 
-struct AnswerOption: View {
+struct OptionView: View {
     @Environment(GameManager.self) private var gameManager
     @State var isSelected = false
     var option: Option

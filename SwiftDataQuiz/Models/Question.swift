@@ -1,6 +1,6 @@
 //
-//  Questions.swift
-//  Jaso
+//  Question.swift
+//  SwiftDataQuiz
 //
 //  Created by Young Jin Ju on 6/20/25.
 //

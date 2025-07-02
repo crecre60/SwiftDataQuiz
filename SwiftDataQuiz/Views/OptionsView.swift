@@ -18,7 +18,7 @@ struct OptionsView: View {
 
     var body: some View {
         ForEach(shuffledOptions, id: \.id) { option in
-            AnswerOption(option: option)
+            OptionView(option: option)
                 .environment(gameManager)
                 .simultaneousGesture(
                     TapGesture().onEnded { _ in
