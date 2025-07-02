@@ -61,10 +61,7 @@ struct QuestionView: View {
             Spacer()
             ScoreBoardView()
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .background(Color(#colorLiteral(red: 1, green: 0.9269904792, blue: 0.9197104489, alpha: 1)))
-        .toolbar(.hidden)
+        .formatVStack()
         .onChange(of: gaugeProgress) { oldValue, newValue in
             if newValue >= 1 {
                 proceed {
@@ -87,7 +84,4 @@ extension QuestionView {
             }
         }
     }
-}
-
-#Preview {
 }
